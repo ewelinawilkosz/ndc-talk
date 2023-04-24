@@ -1,1 +1,0 @@
-{ "namespace": "default", "pod": "hello-ngingo", "image": "kosli/ngingo:20191a0", "startedAt": "2023-04-24T10:38:17Z", "status": "running" }

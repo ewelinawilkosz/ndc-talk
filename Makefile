@@ -1,4 +1,4 @@
-NAME   := kosli/ngingo
+NAME   := ewelinawilkosz/ngingo
 TAG    := $$(git log -1 --pretty=%h)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest

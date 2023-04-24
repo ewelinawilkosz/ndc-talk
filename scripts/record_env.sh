@@ -1,5 +1,4 @@
 #!/bin/bash 
-
 timestamp=$(date +%s)
 
 podName=$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')
@@ -20,9 +19,9 @@ snapshot=$(jq -n \
     --arg status "running" \
     '{namespace: $namespace, pod: $pod, image: $image, startedAt: $startedAt, status: $status}')
 
-
+lastSnapshot=""
 echo read old file
-lastSnapshot=$(cat $(ls -t *.json | head -1))
+lastSnapshot=$(cat "$(ls -t *.json | head -1)")
 echo $lastSnapshot
 echo create and read new file
 echo $snapshot > $timestamp.json
