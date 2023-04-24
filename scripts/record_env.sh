@@ -21,17 +21,17 @@ snapshot=$(jq -n \
 
 lastSnapshot=""
 echo read old file
-lastSnapshot=$(cat "$(ls -t *.json | head -1)")
+lastSnapshot=$(cat "$(ls -t snapshots/*.json | head -1)")
 echo $lastSnapshot
 echo create and read new file
-echo $snapshot > $timestamp.json
-newSnapshot=$(cat $timestamp.json)
+echo $snapshot > snapshots/$timestamp.json
+newSnapshot=$(cat snapshots/$timestamp.json)
 echo $newSnapshot
 
 
 if [ "$lastSnapshot" == "$newSnapshot" ]; then
     echo No need to keep new snapshot!
-    rm $timestamp.json
+    rm snapshots/$timestamp.json
 else   
     echo Keeping new snapshot...
 fi

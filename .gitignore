@@ -1,3 +1,4 @@
 plan.txt
 tmp/**
-scripts/*.json
+scripts/snapshots/**
+scripts/artifacts/**
