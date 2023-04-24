@@ -1,0 +1,3 @@
+ORG: "test-organization"
+API-TOKEN: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImV3ZWxpbmF3aWxrb3N6In0.06g_H0Ce4V3zZvf2Ubky9VwtTTGyYKe9_d47mAdxxU8"
+HOST: "http://localhost/"
