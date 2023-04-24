@@ -1,6 +1,6 @@
 #!/bin/bash
 
-snapshots=$(ls -t *.json)
+snapshots=$(ls -t snapshots/*.json)
 echo
 echo "-------------------------------------------"
 echo Environment changelog:
@@ -12,6 +12,6 @@ till="now"
 for snapshot in $snapshots; do
     from=$(cat $snapshot | jq '.startedAt')
     imageName=$(cat $snapshot | jq '.image')
-    echo -e Running: "${imageName//\"}" '\t' From: $from '\t' Till: $till
+    echo -e Running: "${imageName//\"}" '\t\t' From: $from '\t' Till: $till
     till=$from
 done

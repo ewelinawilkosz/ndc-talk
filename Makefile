@@ -15,7 +15,7 @@ build:
 push:
 	@echo ghcr.io/${IMG}
 	@docker push ghcr.io/${IMG}
-	@scripts/report_build.sh ${TAG} ghcr.io/${IMG}
+	@cd scripts && ./report_build.sh ${TAG} ghcr.io/${IMG}
 
 run:
 	@docker run -d --rm -it -p 80:80 --name ngingo ${NAME}
