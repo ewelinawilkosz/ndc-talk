@@ -2,3 +2,4 @@ plan.txt
 tmp/**
 scripts/snapshots/**
 scripts/artifacts/**
+snyk-result.json

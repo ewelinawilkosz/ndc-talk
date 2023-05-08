@@ -23,10 +23,11 @@ run:
 stop:
 	@docker stop ngingo
 
-runk:
-	@kubectl run hello-ngingo --image=${IMG} --port=80
-	kubectl wait --for=condition=Ready pod/hello-ngingo
-	@kubectl port-forward pods/hello-ngingo 8080:80
+deploy:
+	@kubectl get deployment hello-ngingo || kubectl create deployment hello-ngingo --image=ghcr.io/${IMG} --port=80
+	@kubectl set image deployment/hello-ngingo ngingo=ghcr.io/${IMG}
+#	kubectl wait --for=condition=Ready pod/hello-ngingo
+#	@kubectl port-forward pods/hello-ngingo 8080:80
 
 stopk:
 	@kubectl delete pod hello-ngingo
