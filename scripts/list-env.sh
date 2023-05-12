@@ -12,6 +12,6 @@ till="now"
 for snapshot in $snapshots; do
     from=$(cat $snapshot | jq '.startedAt')
     imageName=$(cat $snapshot | jq '.image')
-    echo -e Running: "${imageName//\"}" '\t\t' From: $from '\t' Till: $till
+    printf 'From: %s\tTill: %-25s %s\n' "${from//\"}" "${till//\"}" "${imageName//\"}"
     till=$from
 done
