@@ -7,7 +7,12 @@ artifacts=$(ls artifacts/*.json)
 check_artifact() {
     echo checking against last snapshot
     lastSnapshot=$(cat "$(ls -t snapshots/*.json | head -1)")
-    echo $lastSnapshot
+    lastSnapshotDigest=$(jq '.digest' <<< $lastSnapshot)
+    lsdClean="${lastSnapshotDigest//\"}"
+    if [[ $lsdClean == $1 ]];
+    then
+        echo "artifact currently running"
+    fi
 }
 
 for artifact in $artifacts; do
