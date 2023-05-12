@@ -1,6 +1,7 @@
 ORG	   := ewelinawilkosz
 NAME   := ${ORG}/ngingo
 TAG    := $$(git log -1 --pretty=%h)
+FULL   := $$(git rev-parse HEAD)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest
 
@@ -15,7 +16,7 @@ build:
 push:
 	@echo ghcr.io/${IMG}
 	@docker push ghcr.io/${IMG}
-	@cd scripts && ./report_build.sh ${TAG} ghcr.io/${IMG}
+	@cd scripts && ./report_build.sh ${FULL} ghcr.io/${IMG}
 
 run:
 	@docker run -d --rm -it -p 80:80 --name ngingo ${NAME}
@@ -26,8 +27,8 @@ stop:
 deploy:
 	@kubectl get deployment hello-ngingo || kubectl create deployment hello-ngingo --image=ghcr.io/${IMG} --port=80
 	@kubectl set image deployment/hello-ngingo ngingo=ghcr.io/${IMG}
-#	kubectl wait --for=condition=Ready pod/hello-ngingo
-#	@kubectl port-forward pods/hello-ngingo 8080:80
+	@kubectl rollout status deployment/hello-ngingo --timeout=20s
+#	@PODNAME="$$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')"; kubectl port-forward pods/$$PODNAME 8080:80
 
 stopk:
-	@kubectl delete pod hello-ngingo
+	@kubectl delete deployment hello-ngingo

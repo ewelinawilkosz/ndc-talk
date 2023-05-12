@@ -5,10 +5,14 @@ podName=$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')
 namespaceName=$(kubectl get pods -o=jsonpath='{.items[0].metadata.namespace}')            
 imageName=$(kubectl get pods -o=jsonpath='{.items[0].spec.containers[0].image}')
 startedAt=$(kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].state.*.startedAt}')
+imageID=$(kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].imageID}')
+
+digest=$(awk -F'sha256:' '{print $2}' <<< "$imageID")
 
 echo Namespace: $namespaceName, Pod: $podName
 echo "##############################################"
 echo Image: $imageName
+echo Digest: $digest
 echo StartedAt: $startedAt
 
 snapshot=$(jq -n \
@@ -17,7 +21,8 @@ snapshot=$(jq -n \
     --arg image "$imageName" \
     --arg startedAt "$startedAt" \
     --arg status "running" \
-    '{namespace: $namespace, pod: $pod, image: $image, startedAt: $startedAt, status: $status}')
+    --arg digest "$digest" \
+    '{namespace: $namespace, pod: $pod, image: $image, startedAt: $startedAt, status: $status, digest: $digest}')
 
 lastSnapshot=""
 echo read old file
