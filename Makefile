@@ -31,3 +31,4 @@ deploy:
 
 stopk:
 	@kubectl delete deployment hello-ngingo
+	
