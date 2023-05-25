@@ -7,7 +7,7 @@ echo Environment changelog:
 echo "------------------------------------------"
 echo 
 
-till="now"
+till="NOW"
 
 for snapshot in $snapshots; do
     from=$(cat $snapshot | jq '.startedAt')

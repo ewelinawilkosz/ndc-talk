@@ -9,9 +9,11 @@ check_artifact() {
     lastSnapshot=$(cat "$lastSnapshotFile")
     lastSnapshotDigest=$(jq '.digest' <<< $lastSnapshot)
     lsdClean="${lastSnapshotDigest//\"}"
+    from=$(cat $lastSnapshotFile | jq '.startedAt')
     if [[ $lsdClean == $1 ]];
     then
         echo Running now: YES
+        echo -e '\t'$(./list-env.sh | grep "From: ${from//\"}")
     else    
         echo Running now: NO
     fi
@@ -23,10 +25,12 @@ check_artifact() {
         fi
         digest=$(cat $snapshot | jq '.digest')
         digestClean="${digest//\"}"
+        from=$(cat $snapshot | jq '.startedAt')
         if [[ $digestClean == $1 ]];
         then
             echo Running previously: YES 
-            echo -e '\tstarted at: '$(cat $snapshot | jq '.startedAt')
+            # echo -e '\tstarted at: '$from
+            echo -e '\t'$(./list-env.sh | grep "From: ${from//\"}")
         fi
     done
 
