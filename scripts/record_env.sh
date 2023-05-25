@@ -1,11 +1,11 @@
 #!/bin/bash 
 timestamp=$(date +%s)
 
-podName=$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')
-namespaceName=$(kubectl get pods -o=jsonpath='{.items[0].metadata.namespace}')            
-imageName=$(kubectl get pods -o=jsonpath='{.items[0].spec.containers[0].image}')
-startedAt=$(kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].state.*.startedAt}')
-imageID=$(kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].imageID}')
+podName=$(/usr/local/bin/kubectl get pods -o=jsonpath='{.items[0].metadata.name}')
+namespaceName=$(/usr/local/bin/kubectl get pods -o=jsonpath='{.items[0].metadata.namespace}')            
+imageName=$(/usr/local/bin/kubectl get pods -o=jsonpath='{.items[0].spec.containers[0].image}')
+startedAt=$(/usr/local/bin/kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].state.*.startedAt}')
+imageID=$(/usr/local/bin/kubectl get pods -o=jsonpath='{.items[0].status.containerStatuses[0].imageID}')
 
 digest=$(awk -F'sha256:' '{print $2}' <<< "$imageID")
 
@@ -15,7 +15,7 @@ echo Image: $imageName
 echo Digest: $digest
 echo StartedAt: $startedAt
 
-snapshot=$(jq -n \
+snapshot=$(/opt/homebrew/bin/jq -n \
     --arg namespace "$namespaceName" \
     --arg pod "$podName" \
     --arg image "$imageName" \

@@ -9,6 +9,7 @@ artifact=$(jq -n \
     --arg image "$image" \
     --arg commit "$gitCommit" \
     --arg digest "$digest" \
-    '{artifact: $image, commit: $commit, digest: $digest}')
+    --arg test "" \
+    '{artifact: $image, commit: $commit, digest: $digest, test: $test}')
 
 echo $artifact > artifacts/$gitCommit.json
