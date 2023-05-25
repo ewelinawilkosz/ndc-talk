@@ -26,9 +26,8 @@ deploy:
 	@kubectl get deployment hello-ngingo || kubectl create deployment hello-ngingo --image=ghcr.io/${IMG} --port=80
 	@kubectl set image deployment/hello-ngingo ngingo=ghcr.io/${IMG}
 	@kubectl rollout status deployment/hello-ngingo --timeout=20s
-	@cd scripts && ./record_env.sh
+#	@cd scripts && ./record_env.sh
 #	@PODNAME="$$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')"; kubectl port-forward pods/$$PODNAME 8080:80
 
 stopk:
 	@kubectl delete deployment hello-ngingo
-	
