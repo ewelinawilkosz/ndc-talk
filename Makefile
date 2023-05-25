@@ -5,8 +5,6 @@ FULL   := $$(git rev-parse HEAD)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest
 
-
-
 build:
 	@echo ${IMG}
 	@docker build -f Dockerfile -t ${IMG} .
