@@ -31,3 +31,6 @@ deploy:
 
 stopk:
 	@kubectl delete deployment hello-ngingo
+
+sbom:
+	@cd scripts && ./report_sbom.sh ghcr.io/${IMG}

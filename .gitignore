@@ -3,3 +3,4 @@ tmp/**
 scripts/snapshots/**
 scripts/artifacts/**
 snyk-result.json
+sbom.json
