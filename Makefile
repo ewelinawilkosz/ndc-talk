@@ -11,6 +11,7 @@ build:
 	@docker tag ${IMG} ${LATEST}
 	@docker tag ${IMG} ghcr.io/${IMG}
 
+
 push:
 	@echo ghcr.io/${IMG}
 	@docker push ghcr.io/${IMG}
